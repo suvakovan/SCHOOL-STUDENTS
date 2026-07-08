@@ -73,13 +73,21 @@ TEMPLATES = [
 WSGI_APPLICATION = 'student_project.wsgi.application'
 
 # DATABASE
-# Dynamically configures SQL (MySQL, PostgreSQL, etc.) or SQLite fallback
-DB_ENGINE = os.environ.get('DB_ENGINE', 'django.db.backends.mysql')
-DB_NAME = os.environ.get('DB_NAME', 'school_db')
-DB_USER = os.environ.get('DB_USER', 'root')
-DB_PASSWORD = os.environ.get('DB_PASSWORD', 'root')
-DB_HOST = os.environ.get('DB_HOST', '127.0.0.1')
-DB_PORT = os.environ.get('DB_PORT', '3306')
+# Support Vercel Postgres environment variables or custom env variables
+if 'POSTGRES_HOST' in os.environ:
+    DB_ENGINE = 'django.db.backends.postgresql'
+    DB_NAME = os.environ.get('POSTGRES_DATABASE')
+    DB_USER = os.environ.get('POSTGRES_USER')
+    DB_PASSWORD = os.environ.get('POSTGRES_PASSWORD')
+    DB_HOST = os.environ.get('POSTGRES_HOST')
+    DB_PORT = os.environ.get('POSTGRES_PORT', '5432')
+else:
+    DB_ENGINE = os.environ.get('DB_ENGINE', 'django.db.backends.mysql')
+    DB_NAME = os.environ.get('DB_NAME', 'school_db')
+    DB_USER = os.environ.get('DB_USER', 'root')
+    DB_PASSWORD = os.environ.get('DB_PASSWORD', 'root')
+    DB_HOST = os.environ.get('DB_HOST', '127.0.0.1')
+    DB_PORT = os.environ.get('DB_PORT', '3306')
 
 if DB_ENGINE == 'django.db.backends.sqlite3':
     DATABASES = {
