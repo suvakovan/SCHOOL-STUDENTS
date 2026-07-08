@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirm Delete{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>🗑️ Confirm Delete</h2>
+</div>
+
+<div class="form-card" style="max-width: 480px; margin: 0 auto; text-align: center;">
+    <p style="font-size: 1.1rem; margin-bottom: 20px;">
+        Are you sure you want to delete <strong>{{ object }}</strong>?
+        <br><small style="color: #ef4444;">This action cannot be undone.</small>
+    </p>
+    <form method="POST" style="display: flex; gap: 12px; justify-content: center;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-red">Yes, Delete</button>
+        <a href="javascript:history.back()" class="btn btn-gray">Cancel</a>
+    </form>
+</div>
+{% endblock %}

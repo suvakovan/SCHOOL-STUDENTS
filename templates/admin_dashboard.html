@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>📊 Admin Dashboard</h2>
+    <p class="page-subtitle">Overview of your school system</p>
+</div>
+
+<!-- Stats Cards -->
+<div class="cards">
+    <div class="card card-blue">
+        <div class="card-icon">👨‍🎓</div>
+        <p>Total Students</p>
+        <h2>{{ total_students }}</h2>
+    </div>
+    <div class="card card-green">
+        <div class="card-icon">✅</div>
+        <p>Present Today</p>
+        <h2>{{ present_today }}</h2>
+    </div>
+    <div class="card card-red">
+        <div class="card-icon">❌</div>
+        <p>Absent Today</p>
+        <h2>{{ absent_today }}</h2>
+    </div>
+    <div class="card card-purple">
+        <div class="card-icon">📚</div>
+        <p>Subjects</p>
+        <h2>{{ total_subjects }}</h2>
+    </div>
+    <div class="card card-orange">
+        <div class="card-icon">👩‍🏫</div>
+        <p>Teachers</p>
+        <h2>{{ total_teachers }}</h2>
+    </div>
+</div>
+
+<!-- Charts -->
+<div class="charts-grid">
+    <div class="chart-card">
+        <h3>📅 Attendance – Last 7 Days</h3>
+        <canvas id="attendanceChart"
+            data-labels="{{ chart_labels|join:',' }}"
+            data-present="{{ present_data|join:',' }}"
+            data-absent="{{ absent_data|join:',' }}">
+        </canvas>
+    </div>
+    <div class="chart-card">
+        <h3>🏆 Top Performers</h3>
+        {% if top_students %}
+        <table class="table">
+            <thead>
+                <tr><th>#</th><th>Student</th><th>Avg Marks</th></tr>
+            </thead>
+            <tbody>
+                {% for s in top_students %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ s.student__name }}</td>
+                    <td><strong>{{ s.avg|floatformat:1 }}</strong></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="empty-msg">No marks data yet.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="quick-actions">
+    <h3>⚡ Quick Actions</h3>
+    <div class="action-buttons">
+        <a href="{% url 'add_student' %}" class="btn btn-green">+ Add Student</a>
+        <a href="{% url 'attendance' %}" class="btn btn-blue">📋 Take Attendance</a>
+        <a href="{% url 'marks' %}" class="btn btn-purple">📝 Enter Marks</a>
+        <a href="{% url 'subjects' %}" class="btn btn-orange">📚 Manage Subjects</a>
+        <a href="{% url 'add_user' %}" class="btn btn-gray">👤 Add User</a>
+    </div>
+</div>
+{% endblock %}

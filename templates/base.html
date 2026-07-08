@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}School Management System{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3 class="logo">🏫 School MS</h3>
+            <span class="role-badge">{{ request.user.role|capfirst }}</span>
+        </div>
+
+        <nav>
+            <a href="{% url 'dashboard' %}" class="nav-link {% if request.resolver_match.url_name == 'dashboard' or request.resolver_match.url_name == 'admin_dashboard' or request.resolver_match.url_name == 'teacher_dashboard' %}active{% endif %}">
+                📊 Dashboard
+            </a>
+            <a href="{% url 'student_list' %}" class="nav-link {% if 'student' in request.resolver_match.url_name %}active{% endif %}">
+                👨‍🎓 Students
+            </a>
+            <a href="{% url 'attendance' %}" class="nav-link {% if 'attendance' in request.resolver_match.url_name %}active{% endif %}">
+                📋 Attendance
+            </a>
+            <a href="{% url 'marks' %}" class="nav-link {% if 'marks' in request.resolver_match.url_name %}active{% endif %}">
+                📝 Marks
+            </a>
+            {% if request.user.role == 'admin' %}
+            <a href="{% url 'subjects' %}" class="nav-link {% if 'subject' in request.resolver_match.url_name %}active{% endif %}">
+                📚 Subjects
+            </a>
+            <a href="{% url 'users' %}" class="nav-link {% if 'user' in request.resolver_match.url_name %}active{% endif %}">
+                👤 Users
+            </a>
+            <a href="{% url 'attendance_report' %}" class="nav-link">
+                📈 Reports
+            </a>
+            {% endif %}
+        </nav>
+
+        <div class="sidebar-footer">
+            <span class="user-info">👋 {{ request.user.get_full_name|default:request.user.username }}</span>
+            <a href="{% url 'logout' %}" class="logout-btn">🚪 Logout</a>
+        </div>
+    </div>
+
+    <!-- Topbar (mobile) -->
+    <div class="topbar">
+        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+        <h4>School Management</h4>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+                <button class="alert-close" onclick="this.parentElement.remove()">×</button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

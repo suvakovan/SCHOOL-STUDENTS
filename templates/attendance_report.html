@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Attendance Report{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>📈 Attendance Report</h2>
+    <a href="{% url 'attendance' %}" class="btn btn-gray">← Back</a>
+</div>
+
+{% if report %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Class</th>
+            <th>Total Days</th>
+            <th>Present</th>
+            <th>Absent</th>
+            <th>Attendance %</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in report %}
+        <tr>
+            <td><a href="{% url 'student_detail' r.student.pk %}">{{ r.student.name }}</a></td>
+            <td>{{ r.student.student_class }}</td>
+            <td>{{ r.total }}</td>
+            <td class="text-green">{{ r.present }}</td>
+            <td class="text-red">{{ r.absent }}</td>
+            <td>
+                <!-- <div class="progress-bar-wrap">
+                    <div class="progress-bar {% if r.pct >= 75 %}bar-green{% elif r.pct >= 50 %}bar-orange{% else %}bar-red{% endif %}"
+                         <!-- style="width: { { r.pct } } %"></div> -->
+                </div> 
+                <strong>{{ r.pct }}%</strong>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="empty-msg">No attendance data yet.</p>
+{% endif %}
+{% endblock %}

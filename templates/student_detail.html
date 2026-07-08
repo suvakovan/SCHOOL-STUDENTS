@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ student.name }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>👨‍🎓 {{ student.name }}</h2>
+    <div>
+        <a href="{% url 'edit_student' student.pk %}" class="btn btn-orange">✏️ Edit</a>
+        <a href="{% url 'student_list' %}" class="btn btn-gray">← Back</a>
+    </div>
+</div>
+
+<!-- Student Info -->
+<div class="detail-card">
+    <div class="detail-grid">
+        <div><strong>Roll Number:</strong> {{ student.roll_number }}</div>
+        <div><strong>Class:</strong> {{ student.student_class }}</div>
+        <div><strong>Parent Phone:</strong> {{ student.parent_phone }}</div>
+        <div><strong>Added:</strong> {{ student.created_at|date:"d M Y" }}</div>
+    </div>
+</div>
+
+<!-- Attendance Summary -->
+<div class="section-card">
+    <h3>📋 Attendance Summary (Last 30 Days)</h3>
+    <div class="stat-row">
+        <span class="stat-item green">Present: {{ present_days }}</span>
+        <span class="stat-item red">Absent: {{ total_days|add:"-present_days" }}</span>
+        <span class="stat-item blue">Attendance: {{ attendance_pct }}%</span>
+    </div>
+    {% if attendances %}
+    <table class="table" style="margin-top: 12px;">
+        <thead><tr><th>Date</th><th>Status</th></tr></thead>
+        <tbody>
+            {% for a in attendances %}
+            <tr>
+                <td>{{ a.date|date:"d M Y" }}</td>
+                <td>
+                    {% if a.status %}
+                    <span class="badge badge-green">Present</span>
+                    {% else %}
+                    <span class="badge badge-red">Absent</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty-msg">No attendance records yet.</p>
+    {% endif %}
+</div>
+
+<!-- Marks -->
+<div class="section-card">
+    <h3>📝 Marks</h3>
+    {% if marks %}
+    <table class="table">
+        <thead><tr><th>Subject</th><th>Marks</th><th>Max</th><th>%</th><th>Grade</th></tr></thead>
+        <tbody>
+            {% for m in marks %}
+            <tr>
+                <td>{{ m.subject.name }}</td>
+                <td>{{ m.marks }}</td>
+                <td>{{ m.max_marks }}</td>
+                <td>{{ m.percentage }}%</td>
+                <td><span class="badge {% if m.grade == 'F' %}badge-red{% elif m.grade >= 'B' %}badge-green{% else %}badge-orange{% endif %}">{{ m.grade }}</span></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty-msg">No marks entered yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

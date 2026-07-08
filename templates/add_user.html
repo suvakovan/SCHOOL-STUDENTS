@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Add User{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>➕ Add User</h2>
+    <a href="{% url 'users' %}" class="btn btn-gray">← Back</a>
+</div>
+
+<div class="form-card">
+    <form method="POST" class="form" novalidate>
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+            <label>{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}<span class="field-error">{{ field.errors.0 }}</span>{% endif %}
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary btn-block">✅ Create User</button>
+    </form>
+</div>
+{% endblock %}

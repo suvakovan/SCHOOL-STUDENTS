@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Subjects{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>📚 Subjects</h2>
+</div>
+
+<div class="two-col">
+    <div class="form-card">
+        <h3>Add Subject</h3>
+        <form method="POST" class="form" novalidate>
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+                <label>{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}<span class="field-error">{{ field.errors.0 }}</span>{% endif %}
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary btn-block">+ Add Subject</button>
+        </form>
+    </div>
+
+    <div>
+        <h3>Classes 1–10 Subjects</h3>
+        {% if subjects %}
+        <table class="table">
+            <thead><tr><th>#</th><th>Subject Name</th><th>Action</th></tr></thead>
+            <tbody>
+                {% for s in subjects %}
+                {% if s.name == 'Language 1' or s.name == 'Language 2' or s.name == 'Mathematics' or s.name == 'Science' or s.name == 'Social Science' %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ s.name }}</td>
+                    <td>
+                        <a href="{% url 'delete_subject' s.pk %}" class="btn-sm btn-red"
+                           onclick="return confirm('Delete {{ s.name }}?')">Delete</a>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>Classes 11–12 Subjects</h3>
+        <table class="table">
+            <thead><tr><th>#</th><th>Subject Name</th><th>Action</th></tr></thead>
+            <tbody>
+                {% for s in subjects %}
+                {% if s.name != 'Language 1' and s.name != 'Language 2' and s.name != 'Mathematics' and s.name != 'Science' and s.name != 'Social Science' %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ s.name }}</td>
+                    <td>
+                        <a href="{% url 'delete_subject' s.pk %}" class="btn-sm btn-red"
+                           onclick="return confirm('Delete {{ s.name }}?')">Delete</a>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="empty-msg">No subjects added yet. Use the form to add subjects.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Users{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>👤 Users</h2>
+    <a href="{% url 'add_user' %}" class="btn btn-green">+ Add User</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for u in users %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ u.username }}</td>
+            <td>{{ u.get_full_name|default:"—" }}</td>
+            <td>{{ u.email|default:"—" }}</td>
+            <td><span class="badge {% if u.role == 'admin' %}badge-blue{% else %}badge-green{% endif %}">{{ u.role|capfirst }}</span></td>
+            <td>
+                {% if u.is_active %}
+                <span class="badge badge-green">Active</span>
+                {% else %}
+                <span class="badge badge-red">Inactive</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

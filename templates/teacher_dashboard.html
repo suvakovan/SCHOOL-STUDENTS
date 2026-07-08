@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Teacher Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>📊 Teacher Dashboard</h2>
+    <p class="page-subtitle">Welcome, {{ request.user.get_full_name|default:request.user.username }}</p>
+</div>
+
+<div class="cards">
+    <div class="card card-blue">
+        <div class="card-icon">📝</div>
+        <p>Marks Entered</p>
+        <h2>{{ my_marks_count }}</h2>
+    </div>
+    <div class="card card-green">
+        <div class="card-icon">📊</div>
+        <p>Average Marks</p>
+        <h2>{{ avg_marks }}</h2>
+    </div>
+    <div class="card card-purple">
+        <div class="card-icon">📋</div>
+        <p>Today's Attendance</p>
+        <h2>{{ today_attendance_count }}</h2>
+    </div>
+</div>
+
+{% if subject_labels %}
+<div class="chart-card" style="margin-top: 24px;">
+    <h3>📚 Your Subject-wise Average</h3>
+    <canvas id="subjectChart"
+        data-labels="{{ subject_labels|join:',' }}"
+        data-avgs="{{ subject_avgs|join:',' }}">
+    </canvas>
+</div>
+{% endif %}
+
+<div class="quick-actions">
+    <h3>⚡ Quick Actions</h3>
+    <div class="action-buttons">
+        <a href="{% url 'attendance' %}" class="btn btn-blue">📋 Take Attendance</a>
+        <a href="{% url 'marks' %}" class="btn btn-purple">📝 Enter Marks</a>
+        <a href="{% url 'student_list' %}" class="btn btn-green">👨‍🎓 View Students</a>
+    </div>
+</div>
+{% endblock %}
