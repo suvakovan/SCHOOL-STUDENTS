@@ -7,8 +7,41 @@ This repository is optimized for both **local Docker-based development (MySQL)**
 ---
 
 ## 👥 Credits & Contributors
-* **Application Development**: Developed by **Kameshwari** ([@kameshwariX](https://github.com/kameshwariX)) — designed the core Django models, custom authentication roles, data templates, management views, and interactive user interfaces.
-* **DevOps, Infrastructure & Deployment**: Configured by **Suvakovan** ([@suvakovan](https://github.com/suvakovan)) — containerized local database pipelines using Docker Compose, restructured environment settings, bypassed serverless driver compatibility hurdles, and automated CI/CD pipeline deployment to Vercel with Neon PostgreSQL.
+
+<table align="center" width="100%">
+  <tr>
+    <td align="center" width="50%" valign="top">
+      <a href="https://github.com/kameshwariX">
+        <img src="https://github.com/kameshwariX.png" width="120px;" style="border-radius: 50%; border: 3px solid #3498db;" alt="Kameshwari Profile"/><br />
+        <br />
+        <strong>Kameshwari</strong>
+      </a>
+      <br />
+      <a href="https://github.com/kameshwariX"><code>@kameshwariX</code></a>
+      <br /><br />
+      <img src="https://img.shields.io/badge/Role-Application%20Developer-3498db?style=for-the-badge&logo=django&logoColor=white" alt="App Dev Badge"/>
+      <br /><br />
+      <p align="left">
+        Designed the core Django models, custom authentication roles, data templates, management views, and interactive user interfaces.
+      </p>
+    </td>
+    <td align="center" width="50%" valign="top">
+      <a href="https://github.com/suvakovan">
+        <img src="https://github.com/suvakovan.png" width="120px;" style="border-radius: 50%; border: 3px solid #2ecc71;" alt="Suvakovan Profile"/><br />
+        <br />
+        <strong>Suvakovan</strong>
+      </a>
+      <br />
+      <a href="https://github.com/suvakovan"><code>@suvakovan</code></a>
+      <br /><br />
+      <img src="https://img.shields.io/badge/Role-DevOps%20%26%20Deployment-2ecc71?style=for-the-badge&logo=docker&logoColor=white" alt="DevOps Badge"/>
+      <br /><br />
+      <p align="left">
+        Containerized local database pipelines using Docker Compose, restructured environment settings, bypassed serverless driver compatibility hurdles, and automated CI/CD pipeline deployment to Vercel with Neon PostgreSQL.
+      </p>
+    </td>
+  </tr>
+</table>
 
 ---
 
