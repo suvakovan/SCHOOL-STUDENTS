@@ -81,6 +81,13 @@ if 'POSTGRES_HOST' in os.environ:
     DB_PASSWORD = os.environ.get('POSTGRES_PASSWORD')
     DB_HOST = os.environ.get('POSTGRES_HOST')
     DB_PORT = os.environ.get('POSTGRES_PORT', '5432')
+elif 'POSTGRE_HOST' in os.environ:
+    DB_ENGINE = 'django.db.backends.postgresql'
+    DB_NAME = os.environ.get('POSTGRE_DATABASE')
+    DB_USER = os.environ.get('POSTGRE_USER')
+    DB_PASSWORD = os.environ.get('POSTGRE_PASSWORD')
+    DB_HOST = os.environ.get('POSTGRE_HOST')
+    DB_PORT = os.environ.get('POSTGRE_PORT', '5432')
 else:
     DB_ENGINE = os.environ.get('DB_ENGINE', 'django.db.backends.mysql')
     DB_NAME = os.environ.get('DB_NAME', 'school_db')
