@@ -6,6 +6,12 @@ This repository is optimized for both **local Docker-based development (MySQL)**
 
 ---
 
+## 👥 Credits & Contributors
+* **Application Development**: Developed by **Kameshwari** ([@kameshwariX](https://github.com/kameshwariX)) — designed the core Django models, custom authentication roles, data templates, management views, and interactive user interfaces.
+* **DevOps, Infrastructure & Deployment**: Configured by **Suvakovan** ([@suvakovan](https://github.com/suvakovan)) — containerized local database pipelines using Docker Compose, restructured environment settings, bypassed serverless driver compatibility hurdles, and automated CI/CD pipeline deployment to Vercel with Neon PostgreSQL.
+
+---
+
 ## 🚀 Live Demo
 * **Deployment URL**: [https://school-students-next.vercel.app/](https://school-students-next.vercel.app/)
 * **Default Teacher Account (Sample)**:
