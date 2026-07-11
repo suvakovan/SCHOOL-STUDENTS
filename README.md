@@ -1,4 +1,4 @@
-# 🏫 School Student Management System.
+# 🏫 School Student Management System..
 
 A production-ready Django 6.0 web application designed to manage student profiles, track daily attendance, record subject grades/marks, and generate school-wide analytics. 
 
